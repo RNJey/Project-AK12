@@ -1,0 +1,68 @@
+[
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\cgltf.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\cgltf.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/cgltf.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/cgltf.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_C.rsp -g -o CMakeFiles\\BlackHole_UAS.dir\\src\\glad.c.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\glad.c\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/glad.c",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/glad.c.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui_demo.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui_demo.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui_demo.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui_demo.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui_draw.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui_draw.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui_draw.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui_draw.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui_impl_glfw.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui_impl_glfw.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui_impl_glfw.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui_impl_glfw.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui_impl_opengl3.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui_impl_opengl3.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui_impl_opengl3.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui_impl_opengl3.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui_tables.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui_tables.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui_tables.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui_tables.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\imgui\\imgui_widgets.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\imgui\\imgui_widgets.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/imgui/imgui_widgets.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/imgui/imgui_widgets.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\main.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\main.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/main.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/main.cpp.obj"
+},
+{
+  "directory": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGLFW_DLL @CMakeFiles/BlackHole_UAS.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\BlackHole_UAS.dir\\src\\stb_image.cpp.obj -c \"D:\\Coding\\Kuliah\\C++\\Grafika Komputer\\Project-AK12\\src\\stb_image.cpp\"",
+  "file": "D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/src/stb_image.cpp",
+  "output": "CMakeFiles/BlackHole_UAS.dir/src/stb_image.cpp.obj"
+}
+]

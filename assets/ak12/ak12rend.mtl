@@ -1,0 +1,11 @@
+# File MTL
+
+# --- INI TERNYATA BODI UTAMANYA ---
+newmtl Material__25
+Kd 1.000000 1.000000 1.000000
+map_Kd 01___Default_Base_Color.png
+
+# --- INI TERNYATA BAGIAN PER KECIL ---
+newmtl 02__default
+Kd 1.000000 1.000000 1.000000
+map_Kd spring.png

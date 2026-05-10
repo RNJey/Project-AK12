@@ -1,0 +1,3 @@
+D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build/CMakeFiles/BlackHole_UAS.dir
+D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build/CMakeFiles/edit_cache.dir
+D:/Coding/Kuliah/C++/Grafika Komputer/Project-AK12/build/CMakeFiles/rebuild_cache.dir
