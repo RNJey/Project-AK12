@@ -13,7 +13,6 @@ class Shader {
 public:
     unsigned int ID;
 
-    // Constructor: membaca dan membangun shader
     Shader(const char* vertexPath, const char* fragmentPath) {
         std::string vertexCode;
         std::string fragmentCode;

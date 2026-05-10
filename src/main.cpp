@@ -8,7 +8,7 @@
 #include <cstdlib> 
 
 // =====================================================================
-// LIBRARY EXTERNAL
+// [ FITUR CUSTOM: EXTERNAL LIBRARIES ]
 // =====================================================================
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -18,11 +18,12 @@
 #include "miniaudio.h"
 
 // =====================================================================
-// CLASS HELPER
+// [ BAB: GETTING STARTED - CAMERA & SHADERS ]
+// Class helper dari Learn OpenGL
 // =====================================================================
 #include "Shader.h"
 #include "Camera.h"
-#include "Model.h"
+#include "Model.h" // Masuk dalam [BAB: MODEL LOADING]
 
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
@@ -40,16 +41,14 @@ void processInput(GLFWwindow *window);
 unsigned int loadCubemap(std::vector<std::string> faces);
 
 // =====================================================================
-// [ FITUR CUSTOM ] STATE MACHINE & VARIABEL TUGAS AKHIR
+// [ FITUR CUSTOM: LOGIKA STATE & VARIABEL TUGAS AKHIR ]
 // =====================================================================
-// 1. Logika Kamera Inspektor
 enum CameraState { STATE_FREE, STATE_INSPECT_BARREL, STATE_INSPECT_MAGAZINE, STATE_INSPECT_POPOR, STATE_INSPECT_GRIP, STATE_INSPECT_SCOPE, STATE_SHOOTING_MODE };
 CameraState currentCamState = STATE_FREE;
 glm::vec3 targetCamPos = glm::vec3(0.0f, 0.0f, 5.0f);
 float targetYaw = -90.0f;
 float targetPitch = 0.0f;
 
-// 2. Logika Floating UI (Typewriter Hologram)
 std::string fullTypeText = "";
 std::string currentTypeText = "";
 float typeTimer = 0.0f;
@@ -58,7 +57,6 @@ float typeSpeed = 0.015f;
 ImVec2 floatingUIPos = ImVec2(50, 50); 
 bool showFloatingUI = false;
 
-// 3. Logika Mekanika Senjata & Efek Visual
 bool isFiring = false;
 float fireTimer = 0.0f;
 float fireRate = 0.08f;      
@@ -67,7 +65,8 @@ float flashOpacity = 0.0f;
 
 int main() {
     // =====================================================================
-    // [ LEARN OPENGL ] SETUP WINDOW & KONTEKS OPENGL
+    // [ BAB: GETTING STARTED - HELLO WINDOW ]
+    // Inisialisasi library GLFW dan membuat konteks OpenGL
     // =====================================================================
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -81,14 +80,16 @@ int main() {
     glfwSetCursorPosCallback(window, mouse_callback);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) return -1;
-    glEnable(GL_DEPTH_TEST);
     
-    // [ FITUR CUSTOM ] Aktifkan Blending untuk Transparansi Api & UI
-    glEnable(GL_BLEND);
+    // =====================================================================
+    // [ BAB: ADVANCED OPENGL - DEPTH TESTING & BLENDING ]
+    // =====================================================================
+    glEnable(GL_DEPTH_TEST); // Z-Buffer agar objek 3D tidak tumpang tindih
+    glEnable(GL_BLEND);      // Transparansi (Alpha) untuk Api dan UI ImGui
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // =====================================================================
-    // [ FITUR CUSTOM ] INISIALISASI IMGUI & AUDIO
+    // [ FITUR CUSTOM: INISIALISASI AUDIO & UI IMGUI ]
     // =====================================================================
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -101,12 +102,13 @@ int main() {
     if (ma_engine_init(NULL, &engine) != MA_SUCCESS) return -1;
 
     // =====================================================================
-    // [ LEARN OPENGL ] LOAD SHADER & DATA VERTEX (VAO/VBO)
+    // [ BAB: GETTING STARTED - HELLO TRIANGLE (VAO/VBO) ]
+    // Load Shader dan menyusun data verteks ke memori GPU
     // =====================================================================
     Shader skyboxShader("../assets/shaders/skybox.vert", "../assets/shaders/skybox.frag");
     Shader ak12Shader("../assets/shaders/ak12.vert", "../assets/shaders/ak12.frag");
 
-    // 1. Data Skybox Kubus
+    // 1. Data Vertex Skybox Kubus
     float skyboxVertices[] = {
         -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,  1.0f, -1.0f,
         -1.0f, -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,  1.0f,
@@ -121,7 +123,7 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0); glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
-    // 2. Data Papan 2D Muzzle Flash (Quad)
+    // 2. Data Vertex Papan 2D (Quad) untuk Muzzle Flash
     float flashVertices[] = {
         -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
          0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   1.0f, 0.0f,
@@ -138,7 +140,10 @@ int main() {
     glEnableVertexAttribArray(1); glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(2); glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-    // 3. Load Tekstur Skybox & Model 3D (Assimp)
+    // =====================================================================
+    // [ BAB: ADVANCED OPENGL - CUBEMAPS ] & [ BAB: MODEL LOADING ]
+    // Load tekstur lingkungan 360 derajat dan Model 3D berekstensi .obj
+    // =====================================================================
     std::vector<std::string> faces = { "../assets/skybox/right.png", "../assets/skybox/left.png", "../assets/skybox/top.png", "../assets/skybox/bottom.png", "../assets/skybox/front.png", "../assets/skybox/back.png" };
     unsigned int cubemapTexture = loadCubemap(faces);
     skyboxShader.use(); skyboxShader.setFloat("skybox", 0);
@@ -147,14 +152,14 @@ int main() {
     float modelScale = 0.5f, tiltX = 0.0f, tiltY = 90.0f, tiltZ = 0.0f;
 
     // =====================================================================
-    // [ UTAMA ] GAME LOOP / RENDER LOOP
+    // GAME LOOP / RENDER LOOP UTAMA
     // =====================================================================
     while (!glfwWindowShouldClose(window)) {
-        // [ LEARN OPENGL ] Manajemen Waktu (Frame Rate Independence)
+        // [ BAB: GETTING STARTED - TRANSFORMATIONS (Time) ]
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        if (deltaTime > 0.05f) deltaTime = 0.05f; // Clamping pencegah bug fisika saat lag
+        if (deltaTime > 0.05f) deltaTime = 0.05f; // Clamping anti-lag physics
 
         processInput(window);
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
@@ -162,7 +167,7 @@ int main() {
 
         ImGui_ImplOpenGL3_NewFrame(); ImGui_ImplGlfw_NewFrame(); ImGui::NewFrame();
 
-        // [ FITUR CUSTOM ] Kamera Interpolasi (Gerakan Mulus antar Bagian)
+        // [ FITUR CUSTOM: INTERPOLASI KAMERA ] Gerakan mulus Inspeksi Senjata
         if (currentCamState != STATE_FREE) {
             camera.Position = glm::mix(camera.Position, targetCamPos, deltaTime * 5.0f);
             camera.Yaw = glm::mix(camera.Yaw, targetYaw, deltaTime * 5.0f);
@@ -170,22 +175,22 @@ int main() {
             camera.updateCameraVectors(); 
         }
 
-        // [ LEARN OPENGL ] Hitung Matriks MVP (Model, View, Projection)
+        // [ BAB: GETTING STARTED - COORDINATE SYSTEMS ] 
+        // Pembuatan Matriks View (Kamera) & Projection (Lensa Mata)
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
         // =====================================================================
-        // [ FITUR CUSTOM ] LOGIKA FISIKA & ANIMASI
+        // [ FITUR CUSTOM: LOGIKA MEKANIK MENEMBAK & AUDIO ]
         // =====================================================================
         if (isFiring) {
             fireTimer += deltaTime;
             if (fireTimer >= fireRate) {
                 fireTimer = 0.0f;
-                weaponKickback = 0.15f; // Hentakan senjata (Z-Axis)
-                flashOpacity = 1.0f;    // Nyalakan Muzzle Flash
-                ma_engine_play_sound(&engine, "../assets/audio/ak12-fire.wav", NULL); // Putar SFX
+                weaponKickback = 0.15f; 
+                flashOpacity = 1.0f;    
+                ma_engine_play_sound(&engine, "../assets/audio/ak12-fire.wav", NULL); 
 
-                // Guncangan Layar (Camera Shake)
                 camera.Pitch += (rand() % 100 / 100.0f) * 1.5f; 
                 camera.Yaw += ((rand() % 100 / 50.0f) - 1.0f) * 0.5f; 
                 camera.updateCameraVectors();
@@ -193,22 +198,22 @@ int main() {
         }
 
         if (flashOpacity > 0.0f) {
-            flashOpacity -= deltaTime * 8.0f; // Redupkan api secara bertahap
+            flashOpacity -= deltaTime * 8.0f; 
             if (flashOpacity < 0.0f) flashOpacity = 0.0f; 
         }
-        weaponKickback = glm::mix(weaponKickback, 0.0f, deltaTime * 15.0f); // Kembalikan posisi senjata (Damping)
+        weaponKickback = glm::mix(weaponKickback, 0.0f, deltaTime * 15.0f); 
 
         // =====================================================================
-        // [ LEARN OPENGL ] PROSES RENDER GRAFIS
+        // [ BAB: MODEL LOADING & COORDINATE SYSTEMS ]
+        // 1. Render Model Senjata 3D beserta Matriks Model-nya
         // =====================================================================
-        
-        // 1. Render Model Utama AK-12
         ak12Shader.use();
         ak12Shader.setMat4("projection", projection);
         ak12Shader.setMat4("view", view);
         
+        // Kirim variabel untuk fitur Point Light Muzzle Flash ke Shader
         ak12Shader.setFloat("flashOpacity", flashOpacity);
-        ak12Shader.setVec3("flashLightPos", glm::vec3(0.004f, 0.035f, -0.65f)); // Posisi Sumber Cahaya Ledakan
+        ak12Shader.setVec3("flashLightPos", glm::vec3(0.004f, 0.035f, -0.65f)); 
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, -weaponKickback)); 
@@ -220,8 +225,11 @@ int main() {
         ak12Shader.setMat4("model", model);
         ak12Model.Draw(ak12Shader);
 
-        // 2. Render Efek Muzzle Flash (Billboard 2D Transparan)
-        glDisable(GL_DEPTH_TEST); // Matikan z-buffer agar api tidak tertelan laras
+        // =====================================================================
+        // [ FITUR CUSTOM: BILLBOARDING ] 
+        // 2. Render Papan 2D Api Ledakan
+        // =====================================================================
+        glDisable(GL_DEPTH_TEST); // Mematikan Z-Buffer sementara agar api terlihat di atas laras
         ak12Shader.use();
         ak12Shader.setBool("isBillboardFlash", true); 
         ak12Shader.setFloat("flashOpacity", flashOpacity);
@@ -237,12 +245,15 @@ int main() {
         glBindVertexArray(0);
         
         ak12Shader.setBool("isBillboardFlash", false); 
-        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST); // Nyalakan kembali Z-Buffer
 
-        // 3. Render Skybox Lingkungan
-        glDepthFunc(GL_LEQUAL); 
+        // =====================================================================
+        // [ BAB: ADVANCED OPENGL - CUBEMAPS ]
+        // 3. Render Latar Lingkungan (Skybox)
+        // =====================================================================
+        glDepthFunc(GL_LEQUAL); // Ganti tes kedalaman khusus untuk skybox
         skyboxShader.use();
-        glm::mat4 skyboxView = glm::mat4(glm::mat3(view)); // Hapus komponen translasi kamera
+        glm::mat4 skyboxView = glm::mat4(glm::mat3(view)); // Hapus Translasi Kamera
         skyboxShader.setMat4("view", skyboxView);
         skyboxShader.setMat4("projection", projection);
         glBindVertexArray(skyboxVAO);
@@ -253,7 +264,7 @@ int main() {
         glDepthFunc(GL_LESS);
 
         // =====================================================================
-        // [ FITUR CUSTOM ] RENDER USER INTERFACE (IMGUI)
+        // [ FITUR CUSTOM: RENDER UI / IMGUI ]
         // =====================================================================
         ImGui::Begin("AK-12 Interactive Inspector & Simulator");
         ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Fasilitas Menembak:");
@@ -368,7 +379,10 @@ int main() {
     return 0;
 }
 
-// [ LEARN OPENGL ] Fungsi Pemrosesan Keyboard & Mouse Standar
+// =====================================================================
+// [ BAB: GETTING STARTED - INPUT ] 
+// Fungsi untuk memproses interaksi Keyboard dan Mouse
+// =====================================================================
 void processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
     ImGuiIO& io = ImGui::GetIO();
@@ -393,6 +407,10 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) {
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
 
+// =====================================================================
+// [ BAB: ADVANCED OPENGL - CUBEMAPS ] 
+// Fungsi untuk meload 6 gambar membentuk kotak langit 3D
+// =====================================================================
 unsigned int loadCubemap(std::vector<std::string> faces) {
     unsigned int textureID; glGenTextures(1, &textureID); glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
     int width, height, nrChannels;
